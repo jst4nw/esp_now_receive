@@ -21,6 +21,7 @@ typedef struct traffic_light_states {
 const int ledRed = 0;       // the red LED pin
 const int ledOrange =  1;   // the orange LED pin
 const int ledGreen =  2;    // the green LED pin
+const int swicthMS = 3;     // master/slave input
 
 // declare the array of states
 traffic_light_states current_state;
@@ -46,6 +47,10 @@ void setup(){
     pinMode(ledOrange, OUTPUT);
     pinMode(ledGreen, OUTPUT);
 
+    // configure master/slave switch input
+    // LOW: master (same decoding as transmitter), HIGH: slave (default)
+    pinMode(swicthMS, INPUT_PULLUP);
+
     // initialize the prim. traffic light
     digitalWrite(ledRed, LOW);
     digitalWrite(ledOrange, LOW);
@@ -63,57 +68,112 @@ void setup(){
 }
  
 void loop(){
+    // master, same as transmitter
+    if (digitalRead(swicthMS) == LOW) {
+        switch (current_state.id) {
+            case 0:
+                /* A: red, B: green */
+                digitalWrite(ledRed, HIGH);
+                digitalWrite(ledOrange, LOW);
+                digitalWrite(ledGreen, LOW);
+                break;
+            case 1:
+                digitalWrite(ledRed, HIGH);
+                digitalWrite(ledOrange, LOW);
+                digitalWrite(ledGreen, LOW);
+                break;
 
-    switch (current_state.id) {
-    case 0:
-        /* A: red, B: green */
-        digitalWrite(ledRed, LOW);
-        digitalWrite(ledOrange, LOW);
-        digitalWrite(ledGreen, HIGH);
-        break;
-    case 1:
-        digitalWrite(ledRed, LOW);
-        digitalWrite(ledOrange, HIGH);
-        digitalWrite(ledGreen, LOW);
-        break;
+            case 2: 
+                digitalWrite(ledRed, HIGH);
+                digitalWrite(ledOrange, LOW);
+                digitalWrite(ledGreen, LOW);
+                break;
 
-    case 2: 
-        digitalWrite(ledRed, HIGH);
-        digitalWrite(ledOrange, LOW);
-        digitalWrite(ledGreen, LOW);
-        break;
+            case 3: 
+                digitalWrite(ledRed, HIGH);
+                digitalWrite(ledOrange, HIGH);
+                digitalWrite(ledGreen, LOW);
+                break;
 
-    case 3: 
-        digitalWrite(ledRed, HIGH);
-        digitalWrite(ledOrange, LOW);
-        digitalWrite(ledGreen, LOW);
-        break;
+            case 4:
+                digitalWrite(ledRed, LOW);
+                digitalWrite(ledOrange, LOW);
+                digitalWrite(ledGreen, HIGH);
+                break;
 
-    case 4:
-        digitalWrite(ledRed, HIGH);
-        digitalWrite(ledOrange, LOW);
-        digitalWrite(ledGreen, LOW);
-        break;
+            case 5:
+                digitalWrite(ledRed, LOW);
+                digitalWrite(ledOrange, HIGH);
+                digitalWrite(ledGreen, LOW);
+                break;
 
-    case 5:
-        digitalWrite(ledRed, HIGH);
-        digitalWrite(ledOrange, LOW);
-        digitalWrite(ledGreen, LOW);
-        break;
+            case 6:
+                digitalWrite(ledRed, HIGH);
+                digitalWrite(ledOrange, LOW);
+                digitalWrite(ledGreen, LOW);
+                break;
 
-    case 6:
-        digitalWrite(ledRed, HIGH);
-        digitalWrite(ledOrange, LOW);
-        digitalWrite(ledGreen, LOW);
-        break;
+            case 7: 
+                digitalWrite(ledRed, HIGH);
+                digitalWrite(ledOrange, LOW);
+                digitalWrite(ledGreen, LOW);
+                break;
 
-    case 7: 
-        digitalWrite(ledRed, HIGH);
-        digitalWrite(ledOrange, HIGH);
-        digitalWrite(ledGreen, LOW);
-        break;
+            default:
+                break;
+        }
+    } else {
+        // slave, the opposite to the transitter
+        switch (current_state.id) {
+            case 0:
+                digitalWrite(ledRed, LOW);
+                digitalWrite(ledOrange, LOW);
+                digitalWrite(ledGreen, HIGH);
+                break;
+            case 1:
+                digitalWrite(ledRed, LOW);
+                digitalWrite(ledOrange, HIGH);
+                digitalWrite(ledGreen, LOW);
+                break;
 
-    default:
-        break;
+            case 2: 
+                digitalWrite(ledRed, HIGH);
+                digitalWrite(ledOrange, LOW);
+                digitalWrite(ledGreen, LOW);
+                break;
+
+            case 3: 
+                digitalWrite(ledRed, HIGH);
+                digitalWrite(ledOrange, LOW);
+                digitalWrite(ledGreen, LOW);
+                break;
+
+            case 4:
+                digitalWrite(ledRed, HIGH);
+                digitalWrite(ledOrange, LOW);
+                digitalWrite(ledGreen, LOW);
+                break;
+
+            case 5:
+                digitalWrite(ledRed, HIGH);
+                digitalWrite(ledOrange, LOW);
+                digitalWrite(ledGreen, LOW);
+                break;
+
+            case 6:
+                digitalWrite(ledRed, HIGH);
+                digitalWrite(ledOrange, LOW);
+                digitalWrite(ledGreen, LOW);
+                break;
+
+            case 7: 
+                digitalWrite(ledRed, HIGH);
+                digitalWrite(ledOrange, HIGH);
+                digitalWrite(ledGreen, LOW);
+                break;
+
+            default:
+                break;
+        }
     }
 }
