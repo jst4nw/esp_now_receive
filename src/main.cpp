@@ -21,7 +21,7 @@ typedef struct traffic_light_states {
 const int ledRed = 0;       // the red LED pin
 const int ledOrange =  1;   // the orange LED pin
 const int ledGreen =  2;    // the green LED pin
-const int swicthMS = 3;     // master/slave input
+const int switchMS = 3;     // master/slave input
 
 // declare the array of states
 traffic_light_states current_state;
@@ -49,7 +49,7 @@ void setup(){
 
     // configure master/slave switch input
     // LOW: master (same decoding as transmitter), HIGH: slave (default)
-    pinMode(swicthMS, INPUT_PULLUP);
+    pinMode(switchMS, INPUT_PULLUP);
 
     // initialize the prim. traffic light
     digitalWrite(ledRed, LOW);
@@ -69,7 +69,7 @@ void setup(){
  
 void loop(){
     // master, same as transmitter
-    if (digitalRead(swicthMS) == LOW) {
+    if (digitalRead(switchMS) == LOW) {
         switch (current_state.id) {
             case 0:
                 /* A: red, B: green */
