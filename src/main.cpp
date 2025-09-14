@@ -119,6 +119,18 @@ void loop(){
                 digitalWrite(ledGreen, LOW);
                 break;
 
+            case 8: 
+                digitalWrite(ledRed, LOW);
+                digitalWrite(ledOrange, HIGH);
+                digitalWrite(ledGreen, LOW);
+                break;
+
+            case 9: 
+                digitalWrite(ledRed, LOW);
+                digitalWrite(ledOrange, LOW);
+                digitalWrite(ledGreen, LOW);
+                break;
+
             default:
                 break;
         }
@@ -169,6 +181,18 @@ void loop(){
             case 7: 
                 digitalWrite(ledRed, HIGH);
                 digitalWrite(ledOrange, HIGH);
+                digitalWrite(ledGreen, LOW);
+                break;
+
+            case 8: 
+                digitalWrite(ledRed, LOW);
+                digitalWrite(ledOrange, HIGH);
+                digitalWrite(ledGreen, LOW);
+                break;
+
+            case 9: 
+                digitalWrite(ledRed, LOW);
+                digitalWrite(ledOrange, LOW);
                 digitalWrite(ledGreen, LOW);
                 break;
 
